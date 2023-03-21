@@ -9,14 +9,18 @@ import {
     Put,
     ParseIntPipe,
     UseInterceptors,
+    Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { ApiTags } from '@nestjs/swagger';
-import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
+import { PaginationQuery } from 'src/common/shared/pagination.query';
+import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
+import { PaginationInterceptor } from 'src/common/interceptors/pagination.interceptor';
+import { FilterUserDto } from './dto/filter-user.dto';
 
 @ApiTags('User Entity')
 @Controller('user')
@@ -30,11 +34,11 @@ export class UserController {
     }
 
     @Version('1')
-    // using interceptor
-    @UseInterceptors(LoggingInterceptor)
+    // using interceptors
+    @UseInterceptors(LoggingInterceptor, PaginationInterceptor)
     @Get()
-    findAll(): Promise<User[]> {
-        return this.userService.findAll();
+    findAll(@Query() paginationQuery: PaginationQuery, @Query() filterUserDto: FilterUserDto): Promise<User[]> {
+        return this.userService.findAll(paginationQuery, filterUserDto);
     }
 
     @Version('1')

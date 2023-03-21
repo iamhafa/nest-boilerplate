@@ -1,9 +1,11 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, ILike, Like, Repository, UpdateResult } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PaginationQuery } from 'src/common/shared/pagination.query';
+import { FilterUserDto } from './dto/filter-user.dto';
 
 @Injectable()
 export class UserService {
@@ -23,8 +25,16 @@ export class UserService {
         throw new ConflictException('Account already exist!');
     }
 
-    async findAll(): Promise<User[]> {
-        return this.userRepo.find();
+    async findAll(paginationQuery: PaginationQuery, filterUserDto: FilterUserDto): Promise<User[]> {
+        const { page, limit } = paginationQuery;
+        const { username } = filterUserDto;
+
+        return this.userRepo.find({
+            // default starter of offset is 0, page 1 in query need to - 1 unit
+            where: { username: ILike(`${username}`) }, // find by exactly username OR relative with `Like`,...
+            skip: page ? (page - 1) * limit : 0,
+            take: limit ?? 10,
+        });
     }
 
     async findOneById(id: number): Promise<User> {

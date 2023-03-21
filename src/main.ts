@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication, ValidationPipe, VersioningType } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { swaggerOptions } from './helpers/swagger.option';
+import { swaggerOptions } from './common/helpers/swagger.option';
 
 (async (): Promise<void> => {
     // Setup app
