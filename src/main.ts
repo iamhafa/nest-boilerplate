@@ -8,7 +8,7 @@ import { swaggerOptions } from './common/helpers/swagger.option';
     // Setup app
     const app: INestApplication = await NestFactory.create<INestApplication>(AppModule);
     app.enableCors({ origin: true, credentials: true });
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({ transform: true }));
     app.enableVersioning({ type: VersioningType.URI });
     // app.use(helmet());
     app.setGlobalPrefix('api', { exclude: ['auth/login', 'auth/register'] });

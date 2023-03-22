@@ -31,9 +31,9 @@ export class UserService {
 
         return this.userRepo.find({
             // default starter of offset is 0, page 1 in query need to - 1 unit
-            where: { username: ILike(`${username}`) }, // find by exactly username OR relative with `Like`,...
-            skip: page ? (page - 1) * limit : 0,
-            take: limit ?? 10,
+            where: [{ username: Like(`%${username ?? ''}%`) }], // find by exactly username OR relative with `Like`,...
+            skip: (page - 1) * limit,
+            take: limit,
         });
     }
 
