@@ -1,18 +1,18 @@
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, Max, Min } from 'class-validator';
+import { EDefaultPagination } from '../types/default-pagination.enum';
 
 export class PaginationQuery {
-    // convert string query to number & only accept number type
     @IsOptional()
+    // convert string query to number & only accept number type
     @Type(() => Number)
     @IsNumber()
-    @Min(1)
-    page?: number = 1;
+    @Min(EDefaultPagination.page)
+    page?: number = EDefaultPagination.page;
 
     @IsOptional()
     @Type(() => Number)
     @IsNumber()
-    @Max(20)
-    // set default value if not supplied
-    limit?: number = 10;
+    @Max(EDefaultPagination.limit)
+    limit?: number = EDefaultPagination.limit;
 }
