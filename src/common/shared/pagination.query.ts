@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, Max, Min } from 'class-validator';
-import { EDefaultPagination } from '../types/default-pagination.enum';
+import { EDefaultPagination } from '../enums/default-pagination.enum';
 
 export class PaginationQuery {
     @IsOptional()

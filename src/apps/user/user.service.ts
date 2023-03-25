@@ -51,6 +51,14 @@ export class UserService {
         return found;
     }
 
+    // not using in Controller
+    async findOneByEmail(email: string): Promise<User> {
+        const found: User = await this.userRepo.findOneBy({ email });
+
+        if (!found) throw new NotFoundException(`${email} not found!`);
+        return found;
+    }
+
     async updateOneById(id: number, updateUserDto: UpdateUserDto): Promise<UpdateResult> {
         const found: User = await this.findOneById(id);
         const updateOne: UpdateResult = await this.userRepo.update(found.id, updateUserDto);
