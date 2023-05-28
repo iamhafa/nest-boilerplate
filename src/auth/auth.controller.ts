@@ -1,4 +1,11 @@
-import { Body, ConflictException, Controller, NotFoundException, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  NotFoundException,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from 'src/apps/user/entities/user.entity';
 import { AuthService } from './auth.service';
@@ -9,16 +16,16 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 @ApiTags('Authen')
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
-    // @UseGuards(LocalAuthGuard)
-    @Post('login')
-    async login(@Body() loginDto: LoginDto): Promise<{ access_token: string } | NotFoundException> {
-        return this.authService.login(loginDto);
-    }
+  // @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async login(@Body() loginDto: LoginDto): Promise<{ access_token: string } | NotFoundException> {
+    return this.authService.login(loginDto);
+  }
 
-    @Post('register')
-    async register(@Body() registerDto: RegisterDto): Promise<User | ConflictException> {
-        return this.authService.register(registerDto);
-    }
+  @Post('register')
+  async register(@Body() registerDto: RegisterDto): Promise<User | ConflictException> {
+    return this.authService.register(registerDto);
+  }
 }

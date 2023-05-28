@@ -12,13 +12,13 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([User]),
-        JwtModule.registerAsync({ useClass: JwtModuleConfig }),
-        PassportModule,
-        UserModule,
-    ],
-    controllers: [AuthController],
-    providers: [AuthService, UserService, LocalStrategy, JwtStrategy],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    JwtModule.registerAsync({ useClass: JwtModuleConfig }),
+    PassportModule,
+    UserModule,
+  ],
+  controllers: [AuthController],
+  providers: [AuthService, UserService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}
