@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, Max, Min } from 'class-validator';
-import { PAGINATION } from 'src/common/constants';
+import { PAGINATION } from 'src/utils/constants';
 
 export class PaginationQuery {
   @IsOptional()

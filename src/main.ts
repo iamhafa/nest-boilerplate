@@ -2,10 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication, ValidationPipe, VersioningType } from '@nestjs/common';
 import { AppModule } from 'src/app.module';
-import { SERVER_CONFIG } from 'src/common/constants';
+import { SERVER_CONFIG } from 'src/utils/constants';
 import { swaggerOptions } from 'src/common/helpers/swagger.option';
-import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
-import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
+import { HttpExceptionFilter } from 'src/core/filters/http-exception.filter';
+import { ResponseInterceptor } from 'src/core/interceptors/response.interceptor';
 
 (async (): Promise<void> => {
   // Setup app

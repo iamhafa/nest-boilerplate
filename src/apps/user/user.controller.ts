@@ -20,9 +20,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { PaginationQuery } from 'src/common/shared/pagination.query';
-import { PaginationInterceptor } from 'src/common/interceptors/pagination.interceptor';
+import { PaginationInterceptor } from 'src/core/interceptors/pagination.interceptor';
 import { FilterUserDto } from './dto/filter-user.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
 
 @ApiTags('User Entity')
 @Controller()
@@ -39,11 +39,14 @@ export class UserController {
   // @UseGuards(JwtAuthGuard)
   @UseInterceptors(PaginationInterceptor)
   @Get('list-user')
-  findAll(
-    @Query() paginationQuery: PaginationQuery,
-    @Query() filterUserDto: FilterUserDto,
-  ): Promise<User[]> {
-    return this.userService.findAll(paginationQuery, filterUserDto);
+  findAll(@Query() paginationQuery: PaginationQuery): Promise<User[]> {
+    return this.userService.findAll(paginationQuery);
+  }
+
+  @Version('1')
+  @Get('filter-user')
+  filterUser(@Query() filterUserDto: FilterUserDto): Promise<User[]> {
+    return this.userService.filterUser(filterUserDto);
   }
 
   @Version('1')

@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
 import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
 
 @Injectable()
 export class HeaderMiddeware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): void {
-    // remove server information on header response
+    // remove server's information on header response
     res.removeHeader('X-Powered-By');
     res.removeHeader('Access-Control-Allow-Credentials');
     res.removeHeader('Access-Control-Allow-Origin');

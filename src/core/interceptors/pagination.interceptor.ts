@@ -1,7 +1,7 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, map } from 'rxjs';
-import { PAGINATION } from 'src/common/constants';
+import { PAGINATION } from 'src/utils/constants';
 
 @Injectable()
 export class PaginationInterceptor implements NestInterceptor {

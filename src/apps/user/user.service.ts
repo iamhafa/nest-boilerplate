@@ -25,15 +25,23 @@ export class UserService {
     throw new ConflictException('Account already exist!');
   }
 
-  async findAll(paginationQuery: PaginationQuery, filterUserDto: FilterUserDto): Promise<User[]> {
+  async findAll(paginationQuery: PaginationQuery): Promise<User[]> {
     const { page, limit } = paginationQuery;
-    const { username } = filterUserDto;
 
     return this.userRepo.find({
       // default starter of offset is 0, page 1 in query need to - 1 unit
-      where: [{ username: Like(`%${username ?? ''}%`) }], // find by exactly username OR relative with `Like`,...
       skip: (page - 1) * limit,
       take: limit,
+    });
+  }
+
+  async filterUser(filterUser: FilterUserDto): Promise<User[]> {
+    const { username } = filterUser;
+
+    return this.userRepo.find({
+      where: {
+        username: username,
+      },
     });
   }
 
