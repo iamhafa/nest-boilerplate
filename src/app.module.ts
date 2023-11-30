@@ -5,6 +5,8 @@ import { TypeOrmModuleConfig } from 'config/typeorm.config';
 import { UserModule } from 'src/apps/user/user.module';
 import { HeaderMiddeware } from 'src/core/middlewares/header.middleware';
 import { AuthModule } from 'src/auth/auth.module';
+import { CartModule } from './apps/cart/cart.module';
+import { MovieModule } from './apps/movie/movie.module';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { AuthModule } from 'src/auth/auth.module';
     ConfigModule.forRoot({ isGlobal: true, envFilePath: ['.env'] }),
     AuthModule,
     UserModule,
+    CartModule,
+    MovieModule,
   ],
 })
 export class AppModule implements NestModule {
